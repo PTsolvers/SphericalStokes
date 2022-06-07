@@ -440,7 +440,7 @@ end
     if do_save_p
         !ispath("../out_perf") && mkdir("../out_perf")
         open("../out_perf/out_SphericalStokes_pareff.txt","a") do io
-            println(io, "$(nr) $(nθ) $(nφ) $(ittot) $(wtime) $(A_eff) $(wtime_it) $(T_eff)")
+            println(io, "$(nprocs) $(nr) $(nθ) $(nφ) $(ittot) $(wtime) $(A_eff) $(wtime_it) $(T_eff)")
         end
     end
     if do_save
