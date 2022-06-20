@@ -437,7 +437,7 @@ end
     wtime_it = wtime/(ittot-10)                                       # Execution time per iteration [s]
     T_eff    = A_eff/wtime_it                                         # Effective memory throughput [GB/s]
     me==0 && @printf("Total iters = %d (%d steps), time = %1.3e sec (@ T_eff = %1.2f GB/s) \n", ittot, nt, wtime, round(T_eff, sigdigits=3))
-    if do_save_p
+    if me==0 && do_save_p
         !ispath("../out_perf") && mkdir("../out_perf")
         open("../out_perf/out_SphericalStokes_pareff.txt","a") do io
             println(io, "$(nprocs) $(nr) $(nθ) $(nφ) $(ittot) $(wtime) $(A_eff) $(wtime_it) $(T_eff)")
