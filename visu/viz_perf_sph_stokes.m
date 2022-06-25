@@ -2,10 +2,10 @@ clear
 
 % load scaling_data
 fid = fopen('../out_perf/out_SphericalStokes_mtp_daint.txt','r');  stokes_3D_daint  = fscanf(fid, '%d %d %d %d %f %f %f %f', [8 Inf]); fclose(fid); % nx ny nz ittot t_toc A_eff t_it T_eff
-fid = fopen('../out_perf/out_SphericalStokes_mtp_ampere.txt','r'); stokes_3D_ampere = fscanf(fid, '%d %d %d %d %f %f %f %f', [8 Inf]); fclose(fid); % nx ny nz ittot t_toc A_eff t_it T_eff
+fid = fopen('../out_perf/out_SphericalStokes_mtp_volta.txt','r'); stokes_3D_volta = fscanf(fid, '%d %d %d %d %f %f %f %f', [8 Inf]); fclose(fid); % nx ny nz ittot t_toc A_eff t_it T_eff
 
 fid = fopen('../out_perf/out_SphericalStokes_pareff_daint.txt','r');  stokes_3D_mxpu_daint  = fscanf(fid, '%d %d %d %d %d %f %f %f %f', [9 Inf]); fclose(fid); % np nx ny nz ittot t_toc A_eff t_it T_eff
-fid = fopen('../out_perf/out_SphericalStokes_pareff_ampere.txt','r'); stokes_3D_mxpu_ampere = fscanf(fid, '%d %d %d %d %d %f %f %f %f', [9 Inf]); fclose(fid); % np nx ny nz ittot t_toc A_eff t_it T_eff
+fid = fopen('../out_perf/out_SphericalStokes_pareff_volta.txt','r'); stokes_3D_mxpu_volta = fscanf(fid, '%d %d %d %d %d %f %f %f %f', [9 Inf]); fclose(fid); % np nx ny nz ittot t_toc A_eff t_it T_eff
 
 nrep1 = 3; % number of repetitions of the experiment
 nrep2 = 5; % number of repetitions of the experiment
@@ -14,19 +14,18 @@ my_type = "my_max";
 % my_type = "my_mean";
 
 stokes_3D_daint_2  = average_exp(stokes_3D_daint, nrep1, my_type);
-stokes_3D_ampere_2 = average_exp(stokes_3D_ampere, nrep2, my_type);
+stokes_3D_volta_2 = average_exp(stokes_3D_volta, nrep2, my_type);
 stokes_3D_mxpu_daint_2  = average_exp(stokes_3D_mxpu_daint, nrep3, my_type);
-stokes_3D_mxpu_ampere_2 = average_exp(stokes_3D_mxpu_ampere, nrep2, my_type);
+stokes_3D_mxpu_volta_2 = average_exp(stokes_3D_mxpu_volta, nrep2, my_type);
 
-% T_peak_volta = 840;
+T_peak_volta = 840;
 % T_peak_octo  = 254;
 T_peak_daint = 561;
-T_peak_ampere = 1355;
+% T_peak_ampere = 1355;
 
 % no hide_comm perfs
 single_daint_stokes = 78.1;
-% single_volta_stokes = 334.1;
-single_ampere_stokes = 148.0;
+single_volta_stokes = 148.0;
 sc = 100; % to get percent
 
 FS = 20;
@@ -44,20 +43,20 @@ do_print = 0;
 %%
 if fig1==1
 figure(1),clf,set(gcf,'color','white','pos',[1400 10 500 400])
-semilogx(stokes_3D_ampere_2(2,:),stokes_3D_ampere_2(end,:), '-o', ...
+semilogx(stokes_3D_volta_2(2,:),stokes_3D_volta_2(end,:), '-o', ...
          stokes_3D_daint_2(2,:),stokes_3D_daint_2(end,:), '-o', ...
          'linewidth',3, 'MarkerFaceColor','k'), set(gca, 'fontsize',FS, 'linewidth',1.4)
 hold on
-semilogx(stokes_3D_ampere_2(2,:),T_peak_ampere*ones(size(stokes_3D_ampere_2(2,:))),'k:', ...
-         stokes_3D_ampere_2(2,:),T_peak_daint*ones(size(stokes_3D_ampere_2(2,:))), 'k--',...
+semilogx(stokes_3D_volta_2(2,:),T_peak_volta*ones(size(stokes_3D_volta_2(2,:))),'k:', ...
+         stokes_3D_volta_2(2,:),T_peak_daint*ones(size(stokes_3D_volta_2(2,:))), 'k--',...
          'linewidth',1.5, 'MarkerFaceColor','k')
 hold off
 title({'3D spherical Stokes'},'fontsize',FS-2)
-lg=legend('Tesla A100 SXM4', 'Tesla P100 PCIe'); set(lg,'box','off')
+lg=legend('Tesla V100 SXM2', 'Tesla P100 PCIe'); set(lg,'box','off')
 ylim(mylim)
 xlim(mylimx)
 ylabel({' ';'\bf{T_{eff} [GB/s]}'}, 'fontsize',FS)
-set(gca, 'XTick',stokes_3D_ampere_2(2,:))
+set(gca, 'XTick',stokes_3D_volta_2(2,:))
 xtickangle(45)
 set(gca,'fontname','Courier')
 xlabel('\bf{nx}', 'fontsize',FS)
@@ -72,12 +71,12 @@ end
 %%
 if fig2==1
 figure(2),clf,set(gcf,'color','white','pos',[1400 10 500 400])
-semilogx(stokes_3D_mxpu_ampere_2(1,:),stokes_3D_mxpu_ampere_2(end,:)./single_ampere_stokes.*sc, '-o', ...
+semilogx(stokes_3D_mxpu_volta_2(1,:),stokes_3D_mxpu_volta_2(end,:)./single_volta_stokes.*sc, '-o', ...
          stokes_3D_mxpu_daint_2(1,:),stokes_3D_mxpu_daint_2(end,:)./single_daint_stokes.*sc, '-o', ...
      'linewidth',3, 'MarkerFaceColor','k'), set(gca, 'fontsize',FS, 'linewidth',1.4)
 title({'3D spherical Stokes'},'fontsize',FS-2)
 % ylabel({' ';'\bf{E}'}, 'fontsize',FS)
-lg=legend('Tesla A100 SXM4', 'Tesla P100 PCIe'); set(lg,'box','off')
+lg=legend('Tesla V100 SXM2', 'Tesla P100 PCIe'); set(lg,'box','off')
 ylim(mylim2)
 xlim(mylimx2)
 ylabel({' ';'\bf{E}'}, 'fontsize',FS)
