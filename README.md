@@ -1,2 +1,4 @@
 # SphericalStokes
-Stokes flow in spherical coordinates
+
+
+Stokes flow in spherical, cylindrical and Cartesian coordinates.

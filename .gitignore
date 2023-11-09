@@ -1,4 +1,8 @@
 .DS_Store
 Manifest.toml
-out_visu
+.vscode
 out_daint_sbatch
+out_visu
+out_cyl
+out_sph
+out_cart

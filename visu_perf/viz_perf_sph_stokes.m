@@ -29,11 +29,11 @@ single_volta_stokes = 148.0;
 sc = 100; % to get percent
 
 FS = 20;
-mylim = [0 1400];
-mylimx = [32 550];
+mylim = [0 260];
+mylimx = [29 550];
 ylab = 1270;
 
-mylim2  = [0.945 1.003].*sc;
+mylim2  = [0.945 0.992].*sc;
 mylimx2 = [0.8 3.e3];
 ylab2 = 0.963.*sc;
 
@@ -46,11 +46,11 @@ figure(1),clf,set(gcf,'color','white','pos',[1400 10 500 400])
 semilogx(stokes_3D_volta_2(2,:),stokes_3D_volta_2(end,:), '-o', ...
          stokes_3D_daint_2(2,:),stokes_3D_daint_2(end,:), '-o', ...
          'linewidth',3, 'MarkerFaceColor','k'), set(gca, 'fontsize',FS, 'linewidth',1.4)
-hold on
-semilogx(stokes_3D_volta_2(2,:),T_peak_volta*ones(size(stokes_3D_volta_2(2,:))),'k:', ...
-         stokes_3D_volta_2(2,:),T_peak_daint*ones(size(stokes_3D_volta_2(2,:))), 'k--',...
-         'linewidth',1.5, 'MarkerFaceColor','k')
-hold off
+% hold on
+% semilogx(stokes_3D_volta_2(2,:),T_peak_volta*ones(size(stokes_3D_volta_2(2,:))),'k:', ...
+%          stokes_3D_volta_2(2,:),T_peak_daint*ones(size(stokes_3D_volta_2(2,:))), 'k--',...
+%          'linewidth',1.5, 'MarkerFaceColor','k')
+% hold off
 title({'3D spherical Stokes'},'fontsize',FS-2)
 lg=legend('Tesla V100 SXM2', 'Tesla P100 PCIe'); set(lg,'box','off')
 ylim(mylim)
