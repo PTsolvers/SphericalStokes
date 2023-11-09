@@ -1,7 +1,7 @@
 name = "SphericalStokes"
 uuid = "8a7478d8-7f43-11ee-27db-7db3fc38c60c"
 authors = ["Emilie Macherel <emilie.macherel@unil.ch>, Ludovic Raess <ludovic.rass@gmail.com> and contributors"]
-version = "1.0.0"
+version = "1.0.1"
 
 [deps]
 CUDA = "052768ef-5323-5732-b1bb-66c8b64840ba"
