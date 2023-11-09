@@ -20,13 +20,13 @@ end
 using Plots, Printf, Statistics, LinearAlgebra
 
 # SAVING FUNCTIONS ==========================================================================================
-function Save_infos(num, it, lr_d, lθ_d, lφ_d, nr, nθ, nφ, εnonl, runtime; out="./output_$(it)")
+function Save_infos(num, it, lr_d, lθ_d, lφ_d, nr, nθ, nφ, εnonl, runtime; out="../out_plateau_$(it)")
     fid=open(out * "/$(num)_infos.inf", "w")
     @printf(fid,"%d %f %f %f %d %d %d %d %d", num, lr_d, lθ_d, lφ_d, nr, nθ, nφ, εnonl, runtime); close(fid)
 end
 
 function Save_phys(num , it  , sl  , sη  , sρ  , ηm_d , ηl_d, ηc_d, ηa_d, ρm_d, ρl_d, ρc_d, ρa_d,
-                   hm_d, hl_d, hr_d, hc_d, he_d, n_exp, τ_C , vr  , g   , r   , dmp ; out="./output_$(it)")
+                   hm_d, hl_d, hr_d, hc_d, he_d, n_exp, τ_C , vr  , g   , r   , dmp ; out="../out_plateau_$(it)")
     fid=open(out * "/$(num)_phys.inf", "w")
     @printf(fid,"%d %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f",
             num, sl, sη, sρ, ηm_d, ηl_d, ηc_d, ηa_d, ρm_d, ρl_d, ρc_d, ρa_d, hm_d, hl_d, hr_d, hc_d, he_d,
@@ -35,12 +35,12 @@ function Save_phys(num , it  , sl  , sη  , sρ  , ηm_d , ηl_d, ηc_d, ηa_d, 
 end
 
 @static if USE_GPU
-    function SaveArray(Aname, A, it; out="./output_$(it)")
+    function SaveArray(Aname, A, it; out="../out_plateau_$(it)")
         A_tmp = Array(A)
         fname = string(out, "/A_", Aname, ".bin");  fid = open(fname,"w"); write(fid, A_tmp); close(fid)
     end
 else
-    function SaveArray(Aname, A, it; out="./output_$(it)")
+    function SaveArray(Aname, A, it; out="../out_plateau_$(it)")
         fname = string(out, "/A_", Aname, ".bin"); fid = open(fname,"w"); write(fid, A); close(fid)
     end
 end
@@ -559,7 +559,7 @@ end
         end
         # SAVING --------------------------------------------------------------------------------------------
         if do_save
-            !ispath("./output_$(it)") && mkdir("./output_$(it)")
+            !ispath("../out_plateau_$(it)") && mkdir("../out_plateau_$(it)")
             Save_phys(num  , it , sl, sη    , sρ, ηm , ηl, ηc, ηa, ρm, ρl, ρc, ρa, hm, hl, hr, hc, he,
                       n_exp, τ_C, vr, g*1e15, r , dmp)
             Save_infos(num, it, lr, lθ, lφ, nr, nθ, nφ, εnonl*1e7, 0.0)
