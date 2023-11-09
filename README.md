@@ -9,7 +9,8 @@ The GPU Julia HPC scripts in this repository relate to Stokes flow in different 
 
 <img src="docs/fig_compare.png" alt="Rising sphere" width="600">
 
-## Diapir ascent
+## Studies
+### Diapir ascent
 The [scripts_diapir](scripts_diapir) relate to the following publication: "Quantifying diapir ascent velocities in power-law viscous rock under far-field stress: Integrating analytical estimates, 3D numerical calculations and geodynamic applications":
 ```tex
 @Article{xyz,
@@ -17,7 +18,7 @@ The [scripts_diapir](scripts_diapir) relate to the following publication: "Quant
 }
 ```
 
-## Plateau
+### Plateau
 The [scripts_plateau](scripts_plateau) relate to the following publication: "3D stresses and gravitational spreading velocities in continental plateaus: Analytical estimates, numerical calculations with Earth's curvature and cpplication to the Tibetan plateau":
 ```tex
 @Article{xyz,
