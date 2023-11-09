@@ -1,5 +1,6 @@
 # SphericalStokes
 
+[![DOI](https://zenodo.org/badge/495367268.svg)](https://zenodo.org/doi/10.5281/zenodo.10093648)
 
 Stokes flow in spherical, cylindrical and Cartesian coordinates.
 
